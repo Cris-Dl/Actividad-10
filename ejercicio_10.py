@@ -12,9 +12,9 @@ def user_product():
                 else:
                     break
         name_product = str(input("Nombre del producto: "))
-        category_product = input("Categoría del prodcuto: ")
+        category_product = input("Categoría del producto: ").lower()
         size_product = input("Talla del producto: ")
-        price_product = float(input("Ingrese el precio unitario del producto: "))
+        price_product = float(input("Ingrese el precio unitario del producto:Q "))
         if price_product < 0:
             print("El precio unitario debe ser mayor a Q0.00")
             while True:
@@ -56,6 +56,7 @@ while True:
     print("4.- Productos por categoria")
     print("5.- Salir del programa")
     menu_option = input("Ingrese el número de la opción que desea ingresar: ")
+    print()
     match menu_option:
         case "1":
             print("Agregar productos")
@@ -71,21 +72,28 @@ while True:
             total_price = 0
             for precio in user_inventory.values():
                 total_price = total_price + precio['precio'] * precio['stock']
-            print(f"El precio total del inventario es de: {total_price}")
+            print(f"El precio total del inventario es de:Q {total_price}")
+            print()
         case "4":
-            categorias1 = {}
-            for cate, catego in user_inventory.items():
-                categorias2 = catego.get('categoria')
-                if categorias2:
-                    if categorias2 in categorias1:
-                        categorias1[categorias2] += 1
-                    else:
-                        categorias1[categorias2] = 1
-            print("Cantidad de productos por categoria")
-            for categoria3, dicc in categorias1.items():
-                print(f"{categoria3}:{dicc}")
+            if user_inventory:
+                categorias1 = {}
+                for cate, catego in user_inventory.items():
+                    categorias2 = catego.get('categoria')
+                    if categorias2:
+                        if categorias2 in categorias1:
+                            categorias1[categorias2] += 1
+                        else:
+                            categorias1[categorias2] = 1
+                print("Cantidad de productos por categoria")
+                for categoria3, dicc in categorias1.items():
+                    print(f"{categoria3}:{dicc}")
+                print()
+            else:
+                print("No hay ningun producto registrado")
+                print()
         case "5":
             print("Saliendo del programa, gracias por su preferencia")
             break
         case _:
             print("Valor invalido, vuelva a intentar")
+            print()
